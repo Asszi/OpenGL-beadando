@@ -5,6 +5,9 @@ Transformation of multiple vertices (maximum 5). The program should ask for user
 ### My approach
 I have decided to handle user input with GLFW for convenience. My polygon consist of 5 vertices, I divided it into 3 triangles. 
 
+### Results
+![Alt Text](working-program.gif)
+
 ## Controls
 ### W/A/S/D
 Move the polygon
