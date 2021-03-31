@@ -177,7 +177,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         scalePolygon(0.9f);
     }
 
-    // W - Move up
+    // W - Move forward
     if (key == GLFW_KEY_W)
     {
         movePolygon(1);
@@ -187,7 +187,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         movePolygon(2);
     }
-    // S - Move down
+    // S - Move backward
     if (key == GLFW_KEY_S)
     {
         movePolygon(3);
@@ -222,7 +222,7 @@ void movePolygon(int direction)
 {
     glm::vec3 vector;
 
-    // Up
+    // Forward
     if (direction == 1)
     {
         vector = glm::vec3(0.0f, 0.01f, 0.0f);
@@ -237,7 +237,7 @@ void movePolygon(int direction)
     {
         vector = glm::vec3(0.0f, -0.01f, 0.0f);
     }
-    // Right
+    // Backward
     if (direction == 4)
     {
         vector = glm::vec3(0.01f, 0.0f, 0.0f);
