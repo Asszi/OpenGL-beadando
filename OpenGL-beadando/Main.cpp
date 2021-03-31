@@ -42,9 +42,7 @@ glm::mat4 transform = glm::mat4(1.0f); // Identity matrix
 
 int main()
 {
-    /*
-        GLFW: initialize and configure
-    */
+    // GLFW: initialize and configure
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -54,9 +52,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    /*
-        GLFW window creation
-    */
+    // GLFW window creation
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Orehovszki Balazs | THORXS", NULL, NULL);
     if (window == NULL)
     {
@@ -69,7 +65,7 @@ int main()
 
     glfwSetKeyCallback(window, key_callback);
 
-    // glad: load all OpenGL function pointers
+    // GLAD: load all OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -84,7 +80,8 @@ int main()
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+
+    // Bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -95,45 +92,34 @@ int main()
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
     glEnableVertexAttribArray(0);
-
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
     // Set the default display mode
     glPolygonMode(GL_FRONT_AND_BACK, displayMode);
 
-    // render loop
+    // Render loop
     while (!glfwWindowShouldClose(window))
     {
-        // input
-        //processInput(window, shader);
-
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // render
-
-        // draw our first triangle
         shader.use();
 
         // Get matrix uniform location and set matrix
         unsigned int transformLoc = glGetUniformLocation(shaderID, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
-        //shader.setFloat("someUniform", 1.0f);
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
         // Render the triangles
         glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, 0);
-        //glDrawArrays(GL_POLYGON_SMOOTH, 0, 5);
 
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        // GLFW: swap buffers and poll IO events
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
     // De-allocate all resources
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
@@ -260,10 +246,9 @@ void movePolygon(int direction)
     transform = glm::translate(transform, vector);
 }
 
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+// GLFW: whenever the window size changed (by OS or user resize) this callback function executes
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
+    // make sure the viewport matches the new window dimensions
     glViewport(0, 0, width, height);
 }
